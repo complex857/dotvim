@@ -1,0 +1,25 @@
+snippet $t "$this->" i
+$this->
+endsnippet
+
+snippet $tt "$this->tpl->" i
+$this->tpl->
+endsnippet
+
+snippet vd "var_dump"
+var_dump($1);
+endsnippet
+snippet vdd "var_dump, die"
+var_dump($1); die();
+endsnippet
+
+snippet lq "last query"
+print get_instance()->db->last_query();
+
+endsnippet
+
+snippet fun "function" b
+${1:public} function ${2:name}(${3}) {
+    ${4}
+}
+endsnippet
