@@ -22,7 +22,7 @@ NeoBundle 'Shougo/vimproc', {
 
 NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'Align'
-NeoBundle 'janson/bufonly.vim'
+NeoBundle 'complex857/vim-bufonly'
 NeoBundle 'vim-scripts/Decho'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'kien/ctrlp.vim'
@@ -48,6 +48,7 @@ NeoBundle 'vim-scripts/UltiSnips'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-reload'
 NeoBundle 'baskerville/bubblegum'
+NeoBundle 'Raimondi/delimitMate'
 
 filetype plugin indent on
 NeoBundleCheck
@@ -95,7 +96,7 @@ set nowrap
 set nocursorline
 set nocursorcolumn
 set synmaxcol=300
-set expandtab
+set noexpandtab
 set completeopt=menuone
 set nobackup
 set noswapfile
@@ -107,6 +108,7 @@ set ofu=syntaxcomplete#Complete
 set csqf=s-,g-,d-,c-,t-,e-,f-,i-
 set ignorecase
 set smartcase
+set smarttab
 
 set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 set foldmethod=syntax
@@ -133,8 +135,8 @@ source $VIMRUNTIME/mswin.vim
 " ---------------------------------------------------------
 colorscheme torte
 
-hi Normal          guibg=#151515
-hi LineNr          guibg=#191919    guifg=#808080
+hi Normal          guibg=#191919
+hi LineNr          guibg=#202020    guifg=#808080
 hi CursorLineNr    guibg=#191919    guifg=#bbbbbb    gui=none
 
 hi VertSplit       guifg=#808080    guibg=#3A3A3A    gui=none
@@ -198,7 +200,9 @@ vnoremap > >gv
 
 nnoremap <CR> :nohlsearch<cr><cr>
 
-iab <?=     <?php print?><Left><Left>
+iab <?= <?php print?><Left><Left>
+iab <// </<C-X><C-O>
+
 
 " autocommands
 " ----------------------------------------------------------
@@ -216,7 +220,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 augroup trailing_whitespace
     au!
-    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less :silent call <SID>StripTrailingWhitespaces()
+    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h :silent call <SID>StripTrailingWhitespaces()
 augroup END
 
 augroup ft_php
@@ -227,6 +231,7 @@ augroup ft_css
     au!
     autocmd FileType css,less      setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType css,less      setlocal iskeyword+=_,$,@,%,#,-,.
+    autocmd FileType css,less      syn sync minlines=200
 augroup END
 augroup ft_html
     au!
@@ -297,6 +302,7 @@ let g:tagbar_autoshowtag = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = "bubblegum"
+let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 " ag.vim
 " ----------------------------------------------------------
@@ -305,6 +311,7 @@ let g:agprg = "ag -i --column"
 " syntastic
 " ----------------------------------------------------------
 let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_php_checkers = ['php', ]
 
 " ultisnips
 " ----------------------------------------------------------
@@ -326,3 +333,9 @@ let g:explWinSize = 35
 let g:winManagerWidth = 35
 let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer'
 let g:nerdtree_tabs_open_on_gui_startup = 0
+
+" delimitMate
+" ----------------------------------------------------------
+let delimitMate_expand_cr = 1
+let delimitMate_smart_quotes = 1
+let delimitMate_balance_matchpairs = 1

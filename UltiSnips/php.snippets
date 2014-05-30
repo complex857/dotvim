@@ -15,11 +15,18 @@ endsnippet
 
 snippet lq "last query"
 print get_instance()->db->last_query();
-
 endsnippet
 
 snippet fun "function" b
 ${1:public} function ${2:name}(${3}) {
-    ${4}
+	${4}
 }
+endsnippet
+
+snippet $tg "$this->input->get" i
+$this->input->get('$1');
+endsnippet
+
+snippet $tp "$this->input->post" i
+$this->input->post('$1');
 endsnippet
