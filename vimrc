@@ -49,6 +49,9 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-reload'
 NeoBundle 'baskerville/bubblegum'
 NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'tpope/vim-jdaddy'
 
 filetype plugin indent on
 NeoBundleCheck
@@ -220,7 +223,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 augroup trailing_whitespace
     au!
-    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h :silent call <SID>StripTrailingWhitespaces()
+    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp :silent call <SID>StripTrailingWhitespaces()
 augroup END
 
 augroup ft_php
@@ -312,6 +315,7 @@ let g:agprg = "ag -i --column"
 " ----------------------------------------------------------
 let g:syntastic_javascript_checkers = ['jslint']
 let g:syntastic_php_checkers = ['php', ]
+let g:syntastic_java_checkers = []
 
 " ultisnips
 " ----------------------------------------------------------
@@ -339,3 +343,7 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 let delimitMate_expand_cr = 1
 let delimitMate_smart_quotes = 1
 let delimitMate_balance_matchpairs = 1
+
+" phpdoc
+" ----------------------------------------------------------
+let g:pdv_cfg_php4always = 0
