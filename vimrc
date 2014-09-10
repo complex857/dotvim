@@ -39,7 +39,7 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'complex857/vim-less'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'vexxor/phpdoc.vim'
+NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'dsummersl/vimunit.git'
 NeoBundle 'bling/vim-airline'
@@ -48,7 +48,6 @@ NeoBundle 'vim-scripts/UltiSnips'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-reload'
 NeoBundle 'baskerville/bubblegum'
-NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-jdaddy'
@@ -98,7 +97,7 @@ set shiftwidth=4
 set nowrap
 set nocursorline
 set nocursorcolumn
-set synmaxcol=300
+set synmaxcol=1000
 set noexpandtab
 set completeopt=menuone
 set nobackup
@@ -206,7 +205,6 @@ nnoremap <CR> :nohlsearch<cr><cr>
 iab <?= <?php print?><Left><Left>
 iab <// </<C-X><C-O>
 
-
 " autocommands
 " ----------------------------------------------------------
 
@@ -228,7 +226,8 @@ augroup END
 
 augroup ft_php
     au!
-    autocmd FileType php           setlocal omnifunc=phpcomplete#CompletePHP
+    autocmd FileType php      setlocal omnifunc=phpcomplete#CompletePHP
+    autocmd FileType php      setlocal iskeyword-=-
 augroup END
 augroup ft_css
     au!
@@ -285,6 +284,14 @@ augroup JumpCursorOnEdit
  \ endif
 augroup END
 
+augroup clipboard
+	au!
+	"Copy contents of System Clipboard to + buffer when entering vim
+	autocmd VimEnter * call setreg('+', system('xsel -ob'))
+	"Copy contents of + buffer to System Clipboard while leaving vim
+	autocmd VimLeave * call system("xsel -ib", getreg('+')) 
+augroup END
+
 " folds
 " ----------------------------------------------------------
 function! <SID>foldSpace()
@@ -314,8 +321,9 @@ let g:agprg = "ag -i --column"
 " syntastic
 " ----------------------------------------------------------
 let g:syntastic_javascript_checkers = ['jslint']
-let g:syntastic_php_checkers = ['php', ]
+let g:syntastic_php_checkers = ['php', 'phpmd', ]
 let g:syntastic_java_checkers = []
+let g:syntastic_php_phpmd_post_args = '~/.vim/phpmd_rules.xml'
 
 " ultisnips
 " ----------------------------------------------------------
@@ -338,12 +346,33 @@ let g:winManagerWidth = 35
 let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer'
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
-" delimitMate
-" ----------------------------------------------------------
-let delimitMate_expand_cr = 1
-let delimitMate_smart_quotes = 1
-let delimitMate_balance_matchpairs = 1
+" " delimitMate
+" " ----------------------------------------------------------
+" let delimitMate_expand_cr = 1
+" let delimitMate_smart_quotes = 1
+" let delimitMate_balance_matchpairs = 1
 
 " phpdoc
 " ----------------------------------------------------------
 let g:pdv_cfg_php4always = 0
+let g:pdv_cfg_autoEndFunction = 0
+let g:pdv_cfg_autoEndClass = 0
+
+" vdebug
+" ----------------------------------------------------------
+ let g:vdebug_options = {
+\ "port" : 9000,
+\ "server" : 'localhost',
+\ "timeout" : 20,
+\ "on_close" : 'detach',
+\ "break_on_open" : 0,
+\ "ide_key" : '',
+\ "path_maps" : {},
+\ "debug_window_level" : 0,
+\ "debug_file_level" : 0,
+\ "debug_file" : "",
+\ "watch_window_style" : 'compact',
+\ "marker_default" : '⬦',
+\ "marker_closed_tree" : '▸',
+\ "marker_open_tree" : '▾'
+\}
