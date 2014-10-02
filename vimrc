@@ -228,6 +228,9 @@ augroup ft_php
     au!
     autocmd FileType php      setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType php      setlocal iskeyword-=-
+    autocmd FileType php      setlocal foldmethod=indent
+    autocmd FileType php      setlocal foldnestmax=2
+    autocmd FileType php      setlocal foldlevel=1
 augroup END
 augroup ft_css
     au!
@@ -284,14 +287,6 @@ augroup JumpCursorOnEdit
  \ endif
 augroup END
 
-augroup clipboard
-	au!
-	"Copy contents of System Clipboard to + buffer when entering vim
-	autocmd VimEnter * call setreg('+', system('xsel -ob'))
-	"Copy contents of + buffer to System Clipboard while leaving vim
-	autocmd VimLeave * call system("xsel -ib", getreg('+')) 
-augroup END
-
 " folds
 " ----------------------------------------------------------
 function! <SID>foldSpace()
@@ -346,17 +341,18 @@ let g:winManagerWidth = 35
 let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer'
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
-" " delimitMate
-" " ----------------------------------------------------------
-" let delimitMate_expand_cr = 1
-" let delimitMate_smart_quotes = 1
-" let delimitMate_balance_matchpairs = 1
-
 " phpdoc
 " ----------------------------------------------------------
 let g:pdv_cfg_php4always = 0
 let g:pdv_cfg_autoEndFunction = 0
 let g:pdv_cfg_autoEndClass = 0
+
+" phpcomplete
+" ----------------------------------------------------------
+let g:phpcomplete_mappings = {
+\ 'jump_to_def_split': '<C-W><C-[>',
+\ 'jump_to_def_vsplit': '<C-W><C-]>',
+\ }
 
 " vdebug
 " ----------------------------------------------------------
