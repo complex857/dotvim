@@ -7,7 +7,7 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
 
@@ -20,37 +20,39 @@ NeoBundle 'Shougo/vimproc', {
             \    },
             \ }
 
-NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'Align'
-NeoBundle 'complex857/vim-bufonly'
 NeoBundle 'vim-scripts/Decho'
+NeoBundle 'vim-scripts/UltiSnips'
 NeoBundle 'rking/ag.vim'
+NeoBundle 'baskerville/bubblegum'
 NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tpope/vim-surround'
+NeoBundle 'Rican7/php-doc-modded'
+NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'majutsushi/tagbar'
+NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'joonty/vdebug'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'complex857/vim-bufonly'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'complex857/vim-less'
-NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'Rican7/php-doc-modded'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'dsummersl/vimunit.git'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-NeoBundle 'vim-scripts/UltiSnips'
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'xolox/vim-reload'
-NeoBundle 'baskerville/bubblegum'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'elzr/vim-json'
 NeoBundle 'tpope/vim-jdaddy'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'complex857/vim-less'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'jistr/vim-nerdtree-tabs'
+NeoBundle 'xolox/vim-reload'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'dsummersl/vimunit.git'
+
+call neobundle#end()
 
 filetype plugin indent on
 NeoBundleCheck
