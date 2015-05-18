@@ -51,6 +51,8 @@ NeoBundle 'xolox/vim-reload'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'dsummersl/vimunit.git'
+NeoBundle 'tacahiroy/ctrlp-funky'
+NeoBundle 'valloric/MatchTagAlways'
 
 call neobundle#end()
 
@@ -126,7 +128,7 @@ set wildignore+=*.spl " compiled spelling word lists
 set wildignore+=*.sw? " Vim swap files
 
 set guifont=Terminess\ Powerline\ 12
-set guioptions=''
+set guioptions=
 
 let php_htmlInStrings=1
 " let php_sync_method=100
@@ -228,7 +230,6 @@ augroup END
 
 augroup ft_php
     au!
-    autocmd FileType php      setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType php      setlocal iskeyword-=-
     autocmd FileType php      setlocal foldmethod=indent
     autocmd FileType php      setlocal foldnestmax=2
@@ -242,20 +243,10 @@ augroup ft_css
 augroup END
 augroup ft_html
     au!
-    autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
     autocmd FileType html,markdown setlocal iskeyword+=_,$,@,%,#,-
-augroup END
-augroup ft_javascript
-    au!
-    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
-augroup END
-augroup ft_python
-    au!
-    autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 augroup END
 augroup ft_xml
     au!
-    autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType xml           setlocal iskeyword+=_,$,@,%,#,-
 augroup END
 augroup autosave
@@ -355,6 +346,7 @@ let g:phpcomplete_mappings = {
 \ 'jump_to_def_split': '<C-W><C-[>',
 \ 'jump_to_def_vsplit': '<C-W><C-]>',
 \ }
+let g:phpcomplete_parse_docblock_comments = 0
 
 " vdebug
 " ----------------------------------------------------------
