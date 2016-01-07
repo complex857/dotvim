@@ -20,42 +20,43 @@ NeoBundle 'Shougo/vimproc', {
             \    },
             \ }
 
-NeoBundle 'Align'
-NeoBundle 'vim-scripts/Decho'
-NeoBundle 'vim-scripts/UltiSnips'
-NeoBundle 'rking/ag.vim'
-NeoBundle 'baskerville/bubblegum'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'shawncplus/phpcomplete.vim'
+NeoBundle 'complex857/vim-less'
+NeoBundle 'complex857/vim-bufonly'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-jdaddy'
+NeoBundle 'Align'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tomtom/tcomment_vim'
+NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'joonty/vdebug'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-NeoBundle 'bling/vim-airline'
-NeoBundle 'complex857/vim-bufonly'
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'tpope/vim-jdaddy'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'complex857/vim-less'
-NeoBundle 'xolox/vim-misc'
 NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'xolox/vim-reload'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'dsummersl/vimunit.git'
-NeoBundle 'tacahiroy/ctrlp-funky'
+NeoBundle 'Rican7/php-doc-modded'
+NeoBundle 'bling/vim-airline'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'baskerville/bubblegum'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'vim-scripts/Decho'
+NeoBundle 'vim-scripts/UltiSnips'
+NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'valloric/MatchTagAlways'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle '2072/PHP-Indenting-for-VIm'
+" NeoBundle 'eapache/auto-pairs'
+" NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'Raimondi/delimitMate'
+
 
 call neobundle#end()
-
 filetype plugin indent on
 NeoBundleCheck
 
@@ -91,7 +92,9 @@ set hlsearch
 set incsearch
 set listchars=tab:\|\ ,trail:.,extends:>,precedes:<,eol:$
 set scrolloff=5
-set novisualbell
+set visualbell
+set noerrorbells
+set t_vb=
 set laststatus=2
 set formatoptions=tcrqn
 set cindent
@@ -135,7 +138,6 @@ let php_htmlInStrings=1
 syntax sync minlines=100
 
 source $VIMRUNTIME/mswin.vim
-
 
 " colors
 " ---------------------------------------------------------
@@ -225,11 +227,17 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 augroup trailing_whitespace
     au!
-    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp :silent call <SID>StripTrailingWhitespaces()
+    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp,*.tpl,*.css :silent call <SID>StripTrailingWhitespaces()
+augroup END
+
+augroup ft_tpl
+    au!
+    autocmd FileType smarty   setlocal ft=html
 augroup END
 
 augroup ft_php
     au!
+    autocmd FileType php      setlocal omnifunc=phpcomplete#CompletePHP
     autocmd FileType php      setlocal iskeyword-=-
     autocmd FileType php      setlocal foldmethod=indent
     autocmd FileType php      setlocal foldnestmax=2
@@ -243,15 +251,31 @@ augroup ft_css
 augroup END
 augroup ft_html
     au!
-    autocmd FileType html,markdown setlocal iskeyword+=_,$,@,%,#,-
+    autocmd FileType tpl,html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType tpl,html,markdown setlocal iskeyword+=_,$,@,%,#,-
+    autocmd FileType tpl,html,markdown let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+    autocmd FileType tpl,html,markdown let b:delimitMate_quotes = "\" '"
+augroup END
+augroup ft_javascript
+    au!
+    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+augroup END
+augroup ft_python
+    au!
+    autocmd FileType python        setlocal omnifunc=pythoncomplete#Complete
 augroup END
 augroup ft_xml
     au!
+    autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType xml           setlocal iskeyword+=_,$,@,%,#,-
 augroup END
 augroup autosave
+    au!
     autocmd BufLeave,FocusLost * silent! wall
 augroup END
+
+set noerrorbells visualbell t_vb=
+autocmd GUIEnter * set visualbell t_vb=
 
 " when we reload, tell vim to restore the cursor to the saved position
 augroup JumpCursorOnEdit
@@ -346,23 +370,26 @@ let g:phpcomplete_mappings = {
 \ 'jump_to_def_split': '<C-W><C-[>',
 \ 'jump_to_def_vsplit': '<C-W><C-]>',
 \ }
-let g:phpcomplete_parse_docblock_comments = 0
 
 " vdebug
 " ----------------------------------------------------------
  let g:vdebug_options = {
-\ "port" : 9000,
-\ "server" : 'localhost',
-\ "timeout" : 20,
-\ "on_close" : 'detach',
-\ "break_on_open" : 0,
-\ "ide_key" : '',
-\ "path_maps" : {},
-\ "debug_window_level" : 0,
-\ "debug_file_level" : 0,
-\ "debug_file" : "",
-\ "watch_window_style" : 'compact',
-\ "marker_default" : '⬦',
-\ "marker_closed_tree" : '▸',
-\ "marker_open_tree" : '▾'
+\ 'port' : 9000,
+\ 'server' : 'localhost',
+\ 'timeout' : 20,
+\ 'on_close' : 'detach',
+\ 'break_on_open' : 0,
+\ 'ide_key' : '',
+\ 'path_maps' : {},
+\ 'debug_window_level' : 0,
+\ 'debug_file_level' : 0,
+\ 'debug_file' : '',
+\ 'watch_window_style' : 'compact',
+\ 'marker_default' : '-',
+\ 'marker_closed_tree' : '+',
+\ 'marker_open_tree' : '>'
 \}
+
+" gitgutter
+" ----------------------------------------------------------
+let g:gitgutter_enabled = 0
