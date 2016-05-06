@@ -207,6 +207,10 @@ vnoremap <M-d> :call PhpDocRange()<CR>
 vnoremap < <gv
 vnoremap > >gv
 
+" make cursor position stationary when yanking in virtual mode
+vnoremap <expr>y "my\"" . v:register . "y`y"
+vnoremap <expr>Y "my\"" . v:register . "Y`y"
+
 nnoremap <CR> :nohlsearch<cr><cr>
 
 iab <?= <?php print?><Left><Left>
