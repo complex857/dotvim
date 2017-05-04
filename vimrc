@@ -20,7 +20,7 @@ NeoBundle 'Shougo/vimproc', {
             \    },
             \ }
 
-NeoBundle 'shawncplus/phpcomplete.vim'
+" NeoBundle 'shawncplus/phpcomplete.vim'
 NeoBundle 'complex857/vim-less'
 NeoBundle 'complex857/vim-bufonly'
 NeoBundle 'tpope/vim-surround'
@@ -34,11 +34,11 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'joonty/vdebug'
+" NeoBundle 'joonty/vdebug'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'Rican7/php-doc-modded'
+" NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
@@ -46,12 +46,12 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'baskerville/bubblegum'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'elzr/vim-json'
-NeoBundle 'vim-scripts/Decho'
+" NeoBundle 'vim-scripts/Decho'
 NeoBundle 'vim-scripts/UltiSnips'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'valloric/MatchTagAlways'
 NeoBundle 'mileszs/ack.vim'
-NeoBundle '2072/PHP-Indenting-for-VIm'
+" NeoBundle '2072/PHP-Indenting-for-VIm'
 " NeoBundle 'eapache/auto-pairs'
 " NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'Raimondi/delimitMate'
@@ -131,10 +131,10 @@ set wildignore+=*.pyc " Python byte code
 set wildignore+=*.spl " compiled spelling word lists
 set wildignore+=*.sw? " Vim swap files
 
-set guifont=Terminess\ Powerline\ 12
+set guifont=Terminus\ (TTF):h16
 set guioptions=
 
-let php_htmlInStrings=1
+" let php_htmlInStrings=1
 " let php_sync_method=100
 syntax sync minlines=100
 
@@ -180,6 +180,7 @@ nnoremap <M-n> <Esc>:cn<CR>
 nnoremap <M-N> <Esc>:cp<CR>
 nnoremap <M-b> <Esc>:Breakpoint<CR>
 nnoremap <M-l> <Esc>:NERDTreeMirrorToggle<CR>
+nnoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
 
 inoremap <M-1> <Esc>:1tabnext<CR>
 inoremap <M-2> <esc>:2tabnext<cr>
@@ -199,17 +200,18 @@ inoremap <M-n> <Esc>:cn<CR>
 inoremap <M-N> <Esc>:cp<CR>
 inoremap <M-b> <Esc>:Breakpoint<CR>i
 inoremap <M-l> <Esc>:NERDTreeMirrorToggle<CR>
+inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
 
-inoremap <M-d> <Esc>:call PhpDocSingle()<CR>i
-nnoremap <M-d> :call PhpDocSingle()<CR>
-vnoremap <M-d> :call PhpDocRange()<CR>
+" inoremap <M-d> <Esc>:call PhpDocSingle()<CR>i
+" nnoremap <M-d> :call PhpDocSingle()<CR>
+" vnoremap <M-d> :call PhpDocRange()<CR>
 
 vnoremap < <gv
 vnoremap > >gv
 
 nnoremap <CR> :nohlsearch<cr><cr>
 
-iab <?= <?php print?><Left><Left>
+" iab <?= <?php print?><Left><Left>
 iab <// </<C-X><C-O>
 
 " autocommands
@@ -269,6 +271,12 @@ augroup ft_xml
     au!
     autocmd FileType xml           setlocal omnifunc=xmlcomplete#CompleteTags
     autocmd FileType xml           setlocal iskeyword+=_,$,@,%,#,-
+augroup END
+augroup ft_rb
+    au!
+    autocmd FileType rb           setlocal sw=2
+    autocmd FileType rb           setlocal sts=2
+    autocmd FileType rb           setlocal ts=2
 augroup END
 augroup autosave
     au!
@@ -346,7 +354,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " ctrlp
 " ----------------------------------------------------------
-let g:ctrlp_map = '<M-e>'
+let g:ctrlp_map = '<leader>e'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_switch_buffer = 'e'
@@ -359,38 +367,6 @@ let g:explWinSize = 35
 let g:winManagerWidth = 35
 let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer'
 let g:nerdtree_tabs_open_on_gui_startup = 0
-
-" phpdoc
-" ----------------------------------------------------------
-let g:pdv_cfg_php4always = 0
-let g:pdv_cfg_autoEndFunction = 0
-let g:pdv_cfg_autoEndClass = 0
-
-" phpcomplete
-" ----------------------------------------------------------
-let g:phpcomplete_mappings = {
-\ 'jump_to_def_split': '<C-W><C-[>',
-\ 'jump_to_def_vsplit': '<C-W><C-]>',
-\ }
-
-" vdebug
-" ----------------------------------------------------------
- let g:vdebug_options = {
-\ 'port' : 9000,
-\ 'server' : 'localhost',
-\ 'timeout' : 20,
-\ 'on_close' : 'detach',
-\ 'break_on_open' : 0,
-\ 'ide_key' : '',
-\ 'path_maps' : {},
-\ 'debug_window_level' : 0,
-\ 'debug_file_level' : 0,
-\ 'debug_file' : '',
-\ 'watch_window_style' : 'compact',
-\ 'marker_default' : '-',
-\ 'marker_closed_tree' : '+',
-\ 'marker_open_tree' : '>'
-\}
 
 " gitgutter
 " ----------------------------------------------------------
