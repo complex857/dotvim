@@ -55,6 +55,7 @@ NeoBundle 'mileszs/ack.vim'
 " NeoBundle 'eapache/auto-pairs'
 " NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'kchmck/vim-coffee-script'
 
 
 call neobundle#end()
@@ -138,7 +139,7 @@ set guioptions=
 " let php_sync_method=100
 syntax sync minlines=100
 
-source $VIMRUNTIME/mswin.vim
+" source $VIMRUNTIME/mswin.vim
 
 " colors
 " ---------------------------------------------------------
@@ -180,7 +181,26 @@ nnoremap <M-n> <Esc>:cn<CR>
 nnoremap <M-N> <Esc>:cp<CR>
 nnoremap <M-b> <Esc>:Breakpoint<CR>
 nnoremap <M-l> <Esc>:NERDTreeMirrorToggle<CR>
+nnoremap <D-1> <Esc>:1tabnext<CR>
+nnoremap <D-2> <esc>:2tabnext<cr>
+nnoremap <D-3> <Esc>:3tabnext<CR>
+nnoremap <D-4> <Esc>:4tabnext<CR>
+nnoremap <D-5> <Esc>:5tabnext<CR>
+nnoremap <D-6> <Esc>:6tabnext<CR>
+nnoremap <D-7> <Esc>:7tabnext<CR>
+nnoremap <D-8> <Esc>:8tabnext<CR>
+nnoremap <D-9> <Esc>:9tabnext<CR>
+nnoremap <D-+> <Esc>:tabnext<CR>
+nnoremap <D--> <Esc>:tabprev<CR>
+nnoremap <D-t> <Esc>:tabnew<CR>
+nnoremap <D-Left> <Esc>:tabprev<CR>
+nnoremap <D-Right> <Esc>:tabnext<CR>
+nnoremap <D-n> <Esc>:cn<CR>
+nnoremap <D-N> <Esc>:cp<CR>
+nnoremap <D-b> <Esc>:Breakpoint<CR>
+nnoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 nnoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
+nnoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 
 inoremap <M-1> <Esc>:1tabnext<CR>
 inoremap <M-2> <esc>:2tabnext<cr>
@@ -200,7 +220,26 @@ inoremap <M-n> <Esc>:cn<CR>
 inoremap <M-N> <Esc>:cp<CR>
 inoremap <M-b> <Esc>:Breakpoint<CR>i
 inoremap <M-l> <Esc>:NERDTreeMirrorToggle<CR>
+inoremap <D-1> <Esc>:1tabnext<CR>
+inoremap <D-2> <esc>:2tabnext<cr>
+inoremap <D-3> <Esc>:3tabnext<CR>
+inoremap <D-4> <Esc>:4tabnext<CR>
+inoremap <D-5> <Esc>:5tabnext<CR>
+inoremap <D-6> <Esc>:6tabnext<CR>
+inoremap <D-7> <Esc>:7tabnext<CR>
+inoremap <D-8> <Esc>:8tabnext<CR>
+inoremap <D-9> <Esc>:9tabnext<CR>
+inoremap <D-+> <Esc>:tabnext<CR>
+inoremap <D--> <Esc>:tabprev<CR>
+inoremap <D-t> <Esc>:tabnew<CR>
+inoremap <D-Left> <Esc>:tabprev<CR>
+inoremap <D-Right> <Esc>:tabnext<CR>
+inoremap <D-n> <Esc>:cn<CR>
+inoremap <D-N> <Esc>:cp<CR>
+inoremap <D-b> <Esc>:Breakpoint<CR>i
+inoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
+inoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 
 " inoremap <M-d> <Esc>:call PhpDocSingle()<CR>i
 " nnoremap <M-d> :call PhpDocSingle()<CR>
@@ -214,6 +253,8 @@ vnoremap <expr>y "my\"" . v:register . "y`y"
 vnoremap <expr>Y "my\"" . v:register . "Y`y"
 
 nnoremap <CR> :nohlsearch<cr><cr>
+
+command! -nargs=0 RehashCtags :call <SID>rehash_ctags()
 
 " iab <?= <?php print?><Left><Left>
 iab <// </<C-X><C-O>
@@ -232,9 +273,18 @@ function! <SID>StripTrailingWhitespaces()
     let @/=_s
     call cursor(l, c)
 endfunction
+
+function! <SID>rehash_ctags()
+	" echo 'ctags...'
+	" silent! exec "!ctags -R --append=yes --exclude='*.json' ."
+	echo 'coffeetags...'
+	silent! exec "!coffeetags -R --tag-relative -a -f tags"
+	echo "tags ready"
+endfunction
+
 augroup trailing_whitespace
     au!
-    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp,*.tpl,*.css :silent call <SID>StripTrailingWhitespaces()
+    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp,*.tpl,*.css,*.haml,*.coffee,*.ejs :silent call <SID>StripTrailingWhitespaces()
 augroup END
 
 augroup ft_tpl
@@ -258,10 +308,10 @@ augroup ft_css
 augroup END
 augroup ft_html
     au!
-    autocmd FileType tpl,html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-    autocmd FileType tpl,html,markdown setlocal iskeyword+=_,$,@,%,#,-
-    autocmd FileType tpl,html,markdown let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
-    autocmd FileType tpl,html,markdown let b:delimitMate_quotes = "\" '"
+    autocmd FileType tpl,html,markdown,haml setlocal omnifunc=htmlcomplete#CompleteTags
+    autocmd FileType tpl,html,markdown,haml setlocal iskeyword+=_,$,@,%,#,-
+    autocmd FileType tpl,html,markdown,haml let b:delimitMate_matchpairs = "(:),[:],{:},<:>"
+    autocmd FileType tpl,html,markdown,haml let b:delimitMate_quotes = "\" '"
 augroup END
 augroup ft_javascript
     au!
@@ -278,9 +328,17 @@ augroup ft_xml
 augroup END
 augroup ft_rb
     au!
-    autocmd FileType rb           setlocal sw=2
-    autocmd FileType rb           setlocal sts=2
-    autocmd FileType rb           setlocal ts=2
+    autocmd FileType ruby setlocal sw=2
+    autocmd FileType ruby setlocal sts=2
+    autocmd FileType ruby setlocal ts=2
+    autocmd FileType ruby setlocal expandtab
+augroup END
+augroup ft_coffee
+    au!
+    autocmd FileType coffee setlocal sw=2
+    autocmd FileType coffee setlocal sts=2
+    autocmd FileType coffee setlocal ts=2
+    autocmd FileType coffee setlocal expandtab
 augroup END
 augroup autosave
     au!
@@ -342,6 +400,9 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 " ag.vim
 " ----------------------------------------------------------
 let g:agprg = "ag -i --column"
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " syntastic
 " ----------------------------------------------------------
@@ -358,7 +419,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " ctrlp
 " ----------------------------------------------------------
-let g:ctrlp_map = '<leader>e'
+let g:ctrlp_map = '<D-e>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_switch_buffer = 'e'
