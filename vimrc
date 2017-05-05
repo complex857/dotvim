@@ -255,7 +255,6 @@ vnoremap <expr>Y "my\"" . v:register . "Y`y"
 nnoremap <CR> :nohlsearch<cr><cr>
 
 command! -nargs=0 RehashCtags :call <SID>rehash_ctags()
-
 " iab <?= <?php print?><Left><Left>
 iab <// </<C-X><C-O>
 
@@ -328,10 +327,10 @@ augroup ft_xml
 augroup END
 augroup ft_rb
     au!
-    autocmd FileType ruby setlocal sw=2
-    autocmd FileType ruby setlocal sts=2
-    autocmd FileType ruby setlocal ts=2
-    autocmd FileType ruby setlocal expandtab
+    autocmd FileType rb,ruby setlocal sw=2
+    autocmd FileType rb,ruby setlocal sts=2
+    autocmd FileType rb,ruby setlocal ts=2
+    autocmd FileType rb,ruby setlocal expandtab
 augroup END
 augroup ft_coffee
     au!
