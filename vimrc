@@ -1,4 +1,4 @@
-set shell=/bin/bash
+"" set shell=/bin/bash
 
 " bundles
 " ----------------------------------------------------------
@@ -21,7 +21,7 @@ NeoBundle 'Shougo/vimproc', {
             \ }
 
 " NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'complex857/vim-less'
+" NeoBundle 'complex857/vim-less'
 NeoBundle 'complex857/vim-bufonly'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
@@ -57,6 +57,9 @@ NeoBundle 'mileszs/ack.vim'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'kchmck/vim-coffee-script'
 
+" old habits die hard
+ab Ag Ack
+ab ag Ack
 
 call neobundle#end()
 filetype plugin indent on
@@ -163,24 +166,6 @@ hi SpellLocal      ctermfg=180    ctermbg=bg      guifg=#D7AF87    guibg=bg
 
 " mappings
 " ---------------------------------------------------------
-nnoremap <M-1> <Esc>:1tabnext<CR>
-nnoremap <m-2> <esc>:2tabnext<cr>
-nnoremap <M-3> <Esc>:3tabnext<CR>
-nnoremap <M-4> <Esc>:4tabnext<CR>
-nnoremap <M-5> <Esc>:5tabnext<CR>
-nnoremap <M-6> <Esc>:6tabnext<CR>
-nnoremap <M-7> <Esc>:7tabnext<CR>
-nnoremap <M-8> <Esc>:8tabnext<CR>
-nnoremap <M-9> <Esc>:9tabnext<CR>
-nnoremap <M-+> <Esc>:tabnext<CR>
-nnoremap <M--> <Esc>:tabprev<CR>
-nnoremap <M-t> <Esc>:tabnew<CR>
-nnoremap <M-Left> <Esc>:tabprev<CR>
-nnoremap <M-Right> <Esc>:tabnext<CR>
-nnoremap <M-n> <Esc>:cn<CR>
-nnoremap <M-N> <Esc>:cp<CR>
-nnoremap <M-b> <Esc>:Breakpoint<CR>
-nnoremap <M-l> <Esc>:NERDTreeMirrorToggle<CR>
 nnoremap <D-1> <Esc>:1tabnext<CR>
 nnoremap <D-2> <esc>:2tabnext<cr>
 nnoremap <D-3> <Esc>:3tabnext<CR>
@@ -200,26 +185,8 @@ nnoremap <D-N> <Esc>:cp<CR>
 nnoremap <D-b> <Esc>:Breakpoint<CR>
 nnoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 nnoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
-nnoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
+nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryiwf,llCpath: '../<esc>"rpA'<esc>
 
-inoremap <M-1> <Esc>:1tabnext<CR>
-inoremap <M-2> <esc>:2tabnext<cr>
-inoremap <M-3> <Esc>:3tabnext<CR>
-inoremap <M-4> <Esc>:4tabnext<CR>
-inoremap <M-5> <Esc>:5tabnext<CR>
-inoremap <M-6> <Esc>:6tabnext<CR>
-inoremap <M-7> <Esc>:7tabnext<CR>
-inoremap <M-8> <Esc>:8tabnext<CR>
-inoremap <M-9> <Esc>:9tabnext<CR>
-inoremap <M-+> <Esc>:tabnext<CR>
-inoremap <M--> <Esc>:tabprev<CR>
-inoremap <M-t> <Esc>:tabnew<CR>
-inoremap <M-Left> <Esc>:tabprev<CR>
-inoremap <M-Right> <Esc>:tabnext<CR>
-inoremap <M-n> <Esc>:cn<CR>
-inoremap <M-N> <Esc>:cp<CR>
-inoremap <M-b> <Esc>:Breakpoint<CR>i
-inoremap <M-l> <Esc>:NERDTreeMirrorToggle<CR>
 inoremap <D-1> <Esc>:1tabnext<CR>
 inoremap <D-2> <esc>:2tabnext<cr>
 inoremap <D-3> <Esc>:3tabnext<CR>
@@ -239,7 +206,7 @@ inoremap <D-N> <Esc>:cp<CR>
 inoremap <D-b> <Esc>:Breakpoint<CR>i
 inoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
-inoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
+inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryiwf,llCpath: '../<esc>"rpA'<esc>
 
 " inoremap <M-d> <Esc>:call PhpDocSingle()<CR>i
 " nnoremap <M-d> :call PhpDocSingle()<CR>
@@ -274,8 +241,8 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 function! <SID>rehash_ctags()
-	" echo 'ctags...'
-	" silent! exec "!ctags -R --append=yes --exclude='*.json' ."
+	echo 'ctags...'
+	silent! exec "!ctags -R --append=yes --exclude='*.json' ."
 	echo 'coffeetags...'
 	silent! exec "!coffeetags -R --tag-relative -a -f tags"
 	echo "tags ready"
