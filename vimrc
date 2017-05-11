@@ -185,7 +185,6 @@ nnoremap <D-N> <Esc>:cp<CR>
 nnoremap <D-b> <Esc>:Breakpoint<CR>
 nnoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 nnoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
-nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryiwf,llCpath: '../<esc>"rpA'<esc>
 
 inoremap <D-1> <Esc>:1tabnext<CR>
 inoremap <D-2> <esc>:2tabnext<cr>
@@ -206,7 +205,9 @@ inoremap <D-N> <Esc>:cp<CR>
 inoremap <D-b> <Esc>:Breakpoint<CR>i
 inoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
-inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryiwf,llCpath: '../<esc>"rpA'<esc>
+
+nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryiwf,llc4f'path: '~/Work/<esc>"rpa/'<esc>
+inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryiwf,llc4f'path: '~/Work/<esc>"rpa/'<esc>
 
 " inoremap <M-d> <Esc>:call PhpDocSingle()<CR>i
 " nnoremap <M-d> :call PhpDocSingle()<CR>
