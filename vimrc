@@ -180,8 +180,6 @@ nnoremap <D--> <Esc>:tabprev<CR>
 nnoremap <D-t> <Esc>:tabnew<CR>
 nnoremap <D-Left> <Esc>:tabprev<CR>
 nnoremap <D-Right> <Esc>:tabnext<CR>
-nnoremap <D-n> <Esc>:cn<CR>
-nnoremap <D-N> <Esc>:cp<CR>
 nnoremap <D-b> <Esc>:Breakpoint<CR>
 nnoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 nnoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
@@ -200,14 +198,16 @@ inoremap <D--> <Esc>:tabprev<CR>
 inoremap <D-t> <Esc>:tabnew<CR>
 inoremap <D-Left> <Esc>:tabprev<CR>
 inoremap <D-Right> <Esc>:tabnext<CR>
-inoremap <D-n> <Esc>:cn<CR>
-inoremap <D-N> <Esc>:cp<CR>
 inoremap <D-b> <Esc>:Breakpoint<CR>i
 inoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
 
-nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryiwf,llc4f'path: '~/Work/<esc>"rpa/'<esc>
-inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryiwf,llc4f'path: '~/Work/<esc>"rpa/'<esc>
+nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llc4f'path: '~/Work/<esc>"rpa/'<esc>
+inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llc4f'path: '~/Work/<esc>"rpa/'<esc>
+
+
+nnoremap <C-n> <esc>:cnext<CR>
+inoremap <C-n> <esc>:cnext<CR>
 
 " inoremap <M-d> <Esc>:call PhpDocSingle()<CR>i
 " nnoremap <M-d> :call PhpDocSingle()<CR>
@@ -242,6 +242,7 @@ function! <SID>StripTrailingWhitespaces()
 endfunction
 
 function! <SID>rehash_ctags()
+  silent! exec "!rm tags"
 	echo 'ctags...'
 	silent! exec "!ctags -R --append=yes --exclude='*.json' ."
 	echo 'coffeetags...'
