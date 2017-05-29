@@ -27,7 +27,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-jdaddy'
-NeoBundle 'Align'
+" NeoBundle 'Align'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
@@ -56,6 +56,7 @@ NeoBundle 'mileszs/ack.vim'
 " NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'junegunn/vim-easy-align'
 
 " old habits die hard
 ab Ag Ack
@@ -374,7 +375,7 @@ endif
 
 " syntastic
 " ----------------------------------------------------------
-let g:syntastic_javascript_checkers = ['jslint']
+let g:syntastic_javascript_checkers = []
 let g:syntastic_php_checkers = ['php', 'phpmd', ]
 let g:syntastic_java_checkers = []
 let g:syntastic_php_phpmd_post_args = '~/.vim/phpmd_rules.xml'
@@ -404,3 +405,11 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 " gitgutter
 " ----------------------------------------------------------
 let g:gitgutter_enabled = 0
+
+" easy-align
+" ----------------------------------------------------------
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap <Leader>t <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap <Leader>t <Plug>(EasyAlign)
