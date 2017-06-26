@@ -30,7 +30,7 @@ NeoBundle 'tpope/vim-jdaddy'
 " NeoBundle 'Align'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'scrooloose/syntastic'
+" NeoBundle 'scrooloose/syntastic'
 NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tomtom/tlib_vim'
@@ -57,6 +57,7 @@ NeoBundle 'mileszs/ack.vim'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'junegunn/vim-easy-align'
+NeoBundle 'w0rp/ale', "1.3.0"
 
 " old habits die hard
 ab Ag Ack
@@ -373,12 +374,12 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" syntastic
-" ----------------------------------------------------------
-let g:syntastic_javascript_checkers = []
-let g:syntastic_php_checkers = ['php', 'phpmd', ]
-let g:syntastic_java_checkers = []
-let g:syntastic_php_phpmd_post_args = '~/.vim/phpmd_rules.xml'
+" " syntastic
+" " ----------------------------------------------------------
+" let g:syntastic_javascript_checkers = []
+" let g:syntastic_php_checkers = ['php', 'phpmd', ]
+" let g:syntastic_java_checkers = []
+" let g:syntastic_php_phpmd_post_args = '~/.vim/phpmd_rules.xml'
 
 " ultisnips
 " ----------------------------------------------------------
@@ -401,6 +402,9 @@ let g:explWinSize = 35
 let g:winManagerWidth = 35
 let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer'
 let g:nerdtree_tabs_open_on_gui_startup = 0
+let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 " gitgutter
 " ----------------------------------------------------------
@@ -408,8 +412,11 @@ let g:gitgutter_enabled = 0
 
 " easy-align
 " ----------------------------------------------------------
-" Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap <Leader>t <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap <Leader>t <Plug>(EasyAlign)
+
+" ale
+" ----------------------------------------------------------
+" let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_lint_delay = 1000
