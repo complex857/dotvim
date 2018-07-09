@@ -7,6 +7,10 @@ if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
+if has('python3')
+  silent! python3 1
+endif
+
 call neobundle#begin(expand('~/.vim/bundle/'))
 
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -36,7 +40,7 @@ NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tomtom/tlib_vim'
 " NeoBundle 'joonty/vdebug'
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'pangloss/vim-javascript'
+" NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'jistr/vim-nerdtree-tabs'
 " NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'vim-airline/vim-airline'
@@ -57,7 +61,9 @@ NeoBundle 'mileszs/ack.vim'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'junegunn/vim-easy-align'
-NeoBundle 'w0rp/ale', "1.3.0"
+NeoBundle 'w0rp/ale'
+NeoBundle 'isRuslan/vim-es6'
+
 
 " old habits die hard
 ab Ag Ack
@@ -246,7 +252,7 @@ endfunction
 function! <SID>rehash_ctags()
   silent! exec "!rm tags"
 	echo 'ctags...'
-	silent! exec "!ctags -R --append=yes --exclude='*.json' ."
+	silent! exec "!ctags -R --append=yes --exclude='node_modules/**' --exclude='*.json' ."
 	echo 'coffeetags...'
 	silent! exec "!coffeetags -R --tag-relative -a -f tags"
 	echo "tags ready"
@@ -254,7 +260,7 @@ endfunction
 
 augroup trailing_whitespace
     au!
-    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp,*.tpl,*.css,*.haml,*.coffee,*.ejs :silent call <SID>StripTrailingWhitespaces()
+    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp,*.tpl,*.css,*.haml,*.coffee,*.ejs,*.jsx :silent call <SID>StripTrailingWhitespaces()
 augroup END
 
 augroup ft_tpl
@@ -285,7 +291,8 @@ augroup ft_html
 augroup END
 augroup ft_javascript
     au!
-    autocmd FileType javascript    setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType javascript      setlocal omnifunc=javascriptcomplete#CompleteJS
+    au BufNewFile,BufRead *.jsx setlocal filetype=javascript
 augroup END
 augroup ft_python
     au!
@@ -369,9 +376,9 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 " ag.vim
 " ----------------------------------------------------------
-let g:agprg = "ag -i --column"
+let g:agprg = "ag -i --column --mmap"
 if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'ag --vimgrep --mmap'
 endif
 
 " " syntastic
@@ -417,6 +424,12 @@ nmap <Leader>t <Plug>(EasyAlign)
 
 " ale
 " ----------------------------------------------------------
-" let g:ale_lint_on_text_changed = 'normal'
-" let g:ale_lint_on_insert_leave = 1
-" let g:ale_lint_delay = 1000
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+let g:airline#extensions#ale#enabled = 1
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_delay = 500
+let g:ale_lint_on_enter = 1
+let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
+let g:ale_linter_aliases = {'jsx': 'css'}
