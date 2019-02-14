@@ -25,24 +25,16 @@ NeoBundle 'Shougo/vimproc', {
             \ }
 
 " NeoBundle 'shawncplus/phpcomplete.vim'
-" NeoBundle 'complex857/vim-less'
-NeoBundle 'complex857/vim-bufonly'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-jdaddy'
-" NeoBundle 'Align'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'scrooloose/nerdtree'
-" NeoBundle 'scrooloose/syntastic'
 NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'majutsushi/tagbar'
+" NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tomtom/tlib_vim'
-" NeoBundle 'joonty/vdebug'
 NeoBundle 'hail2u/vim-css3-syntax'
-" NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'jistr/vim-nerdtree-tabs'
-" NeoBundle 'Rican7/php-doc-modded'
 NeoBundle 'vim-airline/vim-airline'
 NeoBundle 'vim-airline/vim-airline-themes'
 NeoBundle 'MarcWeber/vim-addon-mw-utils'
@@ -55,9 +47,6 @@ NeoBundle 'vim-scripts/UltiSnips'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'valloric/MatchTagAlways'
 NeoBundle 'mileszs/ack.vim'
-" NeoBundle '2072/PHP-Indenting-for-VIm'
-" NeoBundle 'eapache/auto-pairs'
-" NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'junegunn/vim-easy-align'
@@ -213,7 +202,6 @@ inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
 nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llc4f'path: '~/Work/<esc>"rpa/'<esc>
 inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llc4f'path: '~/Work/<esc>"rpa/'<esc>
 
-
 nnoremap <C-n> <esc>:cnext<CR>
 inoremap <C-n> <esc>:cnext<CR>
 
@@ -361,11 +349,11 @@ function! <SID>foldSpace()
 endfunction
 nnoremap <silent> <Space> :call <SID>foldSpace()<cr>
 
-" tagbar
-" ----------------------------------------------------------
-nnoremap <silent> <F8> :TagbarToggle<CR>
-let g:tagbar_autofocus = 1
-let g:tagbar_autoshowtag = 1
+" " tagbar
+" " ----------------------------------------------------------
+" nnoremap <silent> <F8> :TagbarToggle<CR>
+" let g:tagbar_autofocus = 1
+" let g:tagbar_autoshowtag = 1
 
 " airline
 " ----------------------------------------------------------
@@ -396,11 +384,15 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " ctrlp
 " ----------------------------------------------------------
-let g:ctrlp_map = '<D-e>'
+let g:ctrlp_map = '<M-e>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = ''
 let g:ctrlp_switch_buffer = 'e'
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+if exists("&macmeta")
+  set macmeta
+end
+
 
 " nerdtree
 " ----------------------------------------------------------
