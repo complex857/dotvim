@@ -31,7 +31,6 @@ NeoBundle 'tpope/vim-repeat'
 NeoBundle 'ctrlpvim/ctrlp.vim'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tomtom/tcomment_vim'
-" NeoBundle 'majutsushi/tagbar'
 NeoBundle 'tomtom/tlib_vim'
 NeoBundle 'hail2u/vim-css3-syntax'
 NeoBundle 'jistr/vim-nerdtree-tabs'
@@ -42,11 +41,10 @@ NeoBundle 'xolox/vim-misc'
 NeoBundle 'baskerville/bubblegum'
 NeoBundle 'othree/html5.vim'
 NeoBundle 'elzr/vim-json'
-" NeoBundle 'vim-scripts/Decho'
 NeoBundle 'vim-scripts/UltiSnips'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'valloric/MatchTagAlways'
-NeoBundle 'mileszs/ack.vim'
+NeoBundle 'jremmen/vim-ripgrep'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'junegunn/vim-easy-align'
@@ -55,8 +53,11 @@ NeoBundle 'isRuslan/vim-es6'
 
 
 " old habits die hard
-ab Ag Ack
-ab ag Ack
+ab Ag Rg
+ab ag Rg
+ab Ack Rg
+ab ack Rg
+ab rg Rg
 
 call neobundle#end()
 filetype plugin indent on
@@ -240,7 +241,7 @@ endfunction
 function! <SID>rehash_ctags()
   silent! exec "!rm tags"
 	echo 'ctags...'
-	silent! exec "!ctags -R --append=yes --exclude='node_modules/**' --exclude='*.json' ."
+	silent! exec "!ctags -R --append=yes --exclude='**/spec/dummy/**' --exclude='node_modules/**' --exclude='*.json' ."
 	echo 'coffeetags...'
 	silent! exec "!coffeetags -R --tag-relative -a -f tags"
 	echo "tags ready"
@@ -361,13 +362,6 @@ let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = "bubblegum"
 let g:airline#extensions#whitespace#mixed_indent_algo = 1
-
-" ag.vim
-" ----------------------------------------------------------
-let g:agprg = "ag -i --column --mmap"
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep --mmap'
-endif
 
 " " syntastic
 " " ----------------------------------------------------------
