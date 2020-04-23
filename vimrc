@@ -4,53 +4,45 @@
 " ----------------------------------------------------------
 if has('vim_starting')
   set nocompatible               " Be iMproved
-  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 if has('python3')
   silent! python3 1
 endif
 
-call neobundle#begin(expand('~/.vim/bundle/'))
+call plug#begin('~/.vim/plugged')
 
-NeoBundleFetch 'Shougo/neobundle.vim'
+" Plug 'shawncplus/phpcomplete.vim'
+" Plug 'dsummersl/vimunit'
+: Plug 'valloric/MatchTagAlways'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-bundler'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'tomtom/tlib_vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'xolox/vim-misc'
+Plug 'baskerville/bubblegum'
+Plug 'othree/html5.vim'
+Plug 'kchmck/vim-coffee-script'
+Plug 'elzr/vim-json'
+Plug 'vim-scripts/UltiSnips'
+Plug 'vim-scripts/matchit.zip'
+Plug 'jremmen/vim-ripgrep'
+Plug 'Raimondi/delimitMate'
+Plug 'junegunn/vim-easy-align'
+Plug 'w0rp/ale'
+Plug 'isRuslan/vim-es6'
+Plug 'maxmellon/vim-jsx-pretty'
 
-NeoBundle 'Shougo/vimproc', {
-            \ 'build' : {
-            \     'windows' : 'make -f make_mingw32.mak',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'unix' : 'make -f make_unix.mak',
-            \    },
-            \ }
-
-" NeoBundle 'shawncplus/phpcomplete.vim'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'ctrlpvim/ctrlp.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'tomtom/tcomment_vim'
-NeoBundle 'tomtom/tlib_vim'
-NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'jistr/vim-nerdtree-tabs'
-NeoBundle 'vim-airline/vim-airline'
-NeoBundle 'vim-airline/vim-airline-themes'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'baskerville/bubblegum'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'vim-scripts/UltiSnips'
-NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'valloric/MatchTagAlways'
-NeoBundle 'jremmen/vim-ripgrep'
-NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'junegunn/vim-easy-align'
-NeoBundle 'w0rp/ale'
-NeoBundle 'isRuslan/vim-es6'
-
+call plug#end()
 
 " old habits die hard
 ab Ag Rg
@@ -59,9 +51,7 @@ ab Ack Rg
 ab ack Rg
 ab rg Rg
 
-call neobundle#end()
 filetype plugin indent on
-NeoBundleCheck
 
 " settings
 " ---------------------------------------------------------
@@ -242,8 +232,6 @@ function! <SID>rehash_ctags()
   silent! exec "!rm tags"
 	echo 'ctags...'
 	silent! exec "!ctags -R --append=yes --exclude='**/spec/dummy/**' --exclude='node_modules/**' --exclude='*.json' ."
-	echo 'coffeetags...'
-	silent! exec "!coffeetags -R --tag-relative -a -f tags"
 	echo "tags ready"
 endfunction
 
@@ -281,7 +269,7 @@ augroup END
 augroup ft_javascript
     au!
     au FileType javascript      setlocal omnifunc=javascriptcomplete#CompleteJS
-    au BufNewFile,BufRead *.jsx setlocal filetype=javascript
+    " au BufNewFile,BufRead *.jsx setlocal filetype=javascript
 augroup END
 augroup ft_python
     au!
@@ -301,10 +289,10 @@ augroup ft_rb
 augroup END
 augroup ft_coffee
     au!
-    autocmd FileType coffee setlocal sw=2
-    autocmd FileType coffee setlocal sts=2
-    autocmd FileType coffee setlocal ts=2
-    autocmd FileType coffee setlocal expandtab
+    autocmd FileType javascript setlocal sw=2
+    autocmd FileType javascript setlocal sts=2
+    autocmd FileType javascript setlocal ts=2
+    autocmd FileType javascript setlocal expandtab
 augroup END
 augroup autosave
     au!
@@ -372,9 +360,12 @@ let g:airline#extensions#whitespace#mixed_indent_algo = 1
 
 " ultisnips
 " ----------------------------------------------------------
+let g:UltiSnipsUsePythonVersion = 3
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsSnippetDirectories = '~/.vim/UltiSnips/'
+let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 
 " ctrlp
 " ----------------------------------------------------------
