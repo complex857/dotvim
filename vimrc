@@ -14,12 +14,13 @@ call plug#begin('~/.vim/plugged')
 
 " Plug 'shawncplus/phpcomplete.vim'
 " Plug 'dsummersl/vimunit'
-: Plug 'valloric/MatchTagAlways'
+" Plug 'valloric/MatchTagAlways'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-vinegar'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tomtom/tlib_vim'
@@ -34,13 +35,14 @@ Plug 'othree/html5.vim'
 Plug 'kchmck/vim-coffee-script'
 Plug 'elzr/vim-json'
 Plug 'vim-scripts/UltiSnips'
-Plug 'vim-scripts/matchit.zip'
+" Plug 'vim-scripts/matchit.zip'
 Plug 'jremmen/vim-ripgrep'
 Plug 'Raimondi/delimitMate'
 Plug 'junegunn/vim-easy-align'
 Plug 'w0rp/ale'
 Plug 'isRuslan/vim-es6'
-Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'vim-scripts/Decho'
+" Plug 'maxmellon/vim-jsx-pretty'
 
 call plug#end()
 
@@ -116,7 +118,7 @@ set foldopen=block,insert,jump,mark,percent,quickfix,search,tag,undo
 set foldmethod=syntax
 set nofoldenable
 
-set wildignore+=*.aux,*.out,*.toc " LaTeX intermediate files
+" set wildignore+=*.aux,*.out,*.toc " LaTeX intermediate files
 set wildignore+=*.luac " Lua byte code
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.pyc " Python byte code
@@ -190,8 +192,8 @@ inoremap <D-b> <Esc>:Breakpoint<CR>i
 inoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
 
-nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llc4f'path: '~/Work/<esc>"rpa/'<esc>
-inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llc4f'path: '~/Work/<esc>"rpa/'<esc>
+nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llCpath: '~/Work/<esc>"rpa/'<esc>
+inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llCpath: '~/Work/<esc>"rpa/'<esc>
 
 nnoremap <C-n> <esc>:cnext<CR>
 inoremap <C-n> <esc>:cnext<CR>
@@ -268,8 +270,8 @@ augroup ft_html
 augroup END
 augroup ft_javascript
     au!
+    au FileType coffee          setlocal ft=javascript
     au FileType javascript      setlocal omnifunc=javascriptcomplete#CompleteJS
-    " au BufNewFile,BufRead *.jsx setlocal filetype=javascript
 augroup END
 augroup ft_python
     au!
@@ -349,7 +351,8 @@ nnoremap <silent> <Space> :call <SID>foldSpace()<cr>
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme = "bubblegum"
-let g:airline#extensions#whitespace#mixed_indent_algo = 1
+let g:airline#extensions#whitespace#mixed_indent_algo = 0
+let g:airline_highlighting_cache = 1
 
 " " syntastic
 " " ----------------------------------------------------------
@@ -403,10 +406,52 @@ nmap <Leader>t <Plug>(EasyAlign)
 " ----------------------------------------------------------
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\   'javascriptreact': ['eslint'],
+\   'jsx': ['eslint'],
 \}
 let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_delay = 500
 let g:ale_lint_on_enter = 1
-let g:ale_linters = {'jsx': ['stylelint', 'eslint']}
 let g:ale_linter_aliases = {'jsx': 'css'}
+let g:ale_linters_explicit = 1
+
+" vim-ripgrep
+" ----------------------------------------------------------
+let g:rg_command = "rg --vimgrep --glob '!tags'"
+
+set includeexpr=substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(v:fname,
+\'^UserInboxModal','app/javascript/src/app/user_inbox/modal',''),
+\'^IPropTypes','app/javascript/src/utils/propTypes',''),
+\'^Seo','app/javascript/src/app/seo',''),
+\'^BVI18n','app/javascript/src/utils/services/i18n',''),
+\'^Components','app/javascript/src/components',''),
+\'^SportSections','app/javascript/src/app/sport_sections',''),
+\'^SportsbookOverview','app/javascript/src/app/sportsbook/overview',''),
+\'^SportsbookCommon','app/javascript/src/app/sportsbook/common',''),
+\'^SportSectionsCustomList','app/javascript/src/app/sport_sections/custom_list',''),
+\'^Accas','app/javascript/src/app/sport_sections/custom_list/components/accas',''),
+\'^CasinoGlobal','app/javascript/src/app/casino/global',''),
+\'^CasinoSectionComponents','app/javascript/src/app/casino/section_components',''),
+\'^CasinoV2','app/javascript/src/app/casino/v2',''),
+\'^Index','app/javascript/src/app/index',''),
+\'^BVComponents','app/javascript/src/globals/components',''),
+\'^AsiaCashier','app/javascript/src/app/asia_cashier',''),
+\'^cashier-common','app/javascript/src/app/cashier/common',''),
+\'^AccountHistory','app/javascript/src/app/account_history',''),
+\'^Registration','app/javascript/src/app/registration',''),
+\'^EventLevel','app/javascript/src/app/event_level',''),
+\'^BetFinder','app/javascript/src/app/bet_finder',''),
+\'^VirtualSports','app/javascript/src/app/virtual_sports',''),
+\'^BetBuilder','app/javascript/src/app/bet_builder',''),
+\'^BetBuilderFixtures','app/javascript/src/app/bet_builder_fixtures',''),
+\'^LandingPage','app/javascript/src/app/landing_page',''),
+\'^BetslipKeypad','app/javascript/src/app/betslip_keypad',''),
+\'^registration-common','app/javascript/src/app/registration/common',''),
+\'^SharedComponents','app/javascript/src/shared',''),
+\'^PersonalDetails','app/javascript/src/app/personal_details',''),
+\'^MainSettings','app/javascript/src/app/settings/features/main',''),
+\'^Leaderboard','app/javascript/src/app/leaderboard',''),
+\'^CashierActions','app/javascript/src/app/cashier_actions',''),
+\'^Betslip','app/javascript/src/app/sportsbook/betslip',''),
+\'^EnhanedOutcomeOffers','app/javascript/src/app/enhanced_outcome_offers','')
