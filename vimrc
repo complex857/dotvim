@@ -413,7 +413,10 @@ let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_delay = 500
 let g:ale_lint_on_enter = 1
-let g:ale_linter_aliases = {'jsx': 'css'}
+let g:ale_linter_aliases = {
+\ 'jsx': 'css',
+\ 'javascriptreact': ['javascript', 'jsx'],
+\}
 let g:ale_linters_explicit = 1
 
 " vim-ripgrep
