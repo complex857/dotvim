@@ -239,7 +239,7 @@ endfunction
 
 augroup trailing_whitespace
     au!
-    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp,*.tpl,*.css,*.haml,*.coffee,*.ejs,*.jsx :silent call <SID>StripTrailingWhitespaces()
+    autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp,*.tpl,*.css,*.haml,*.coffee,*.ejs,*.jsx,*.rake :silent call <SID>StripTrailingWhitespaces()
 augroup END
 
 augroup ft_tpl
@@ -392,6 +392,18 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
+
+" function NERDTreeMyOpenInTab(node)
+"     call a:node.open({'reuse': "all", 'where': 't'})
+" endfunction
+" function NERDTreeMyOpenFile(node)
+"     call a:node.activate({'reuse': 'currenttab', 'where': 'p'})
+" endfunction
+" autocmd VimEnter * :call NERDTreeAddKeyMap({'key': 't', 'callback': 'NERDTreeMyOpenInTab', 'scope': 'FileNode', 'override': 1 })
+" autocmd VimEnter * :call NERDTreeAddKeyMap({'key': 'o', 'callback': 'NERDTreeMyOpenFile', 'scope': 'FileNode', 'override': 1 })
+" autocmd VimEnter * :call NERDTreeAddKeyMap({'key': '<CR>', 'callback': 'NERDTreeMyOpenFile', 'scope': 'FileNode', 'override': 1 })
+" autocmd VimEnter * :call NERDTreeAddKeyMap({'key': '<2-LeftMouse>', 'callback': 'NERDTreeMyOpenFile', 'scope': 'FileNode', 'override': 1 })
+
 
 " gitgutter
 " ----------------------------------------------------------
