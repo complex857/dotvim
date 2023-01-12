@@ -194,6 +194,8 @@ inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
 
 nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llCpath: '~/Work/<esc>"rpa/'<esc>
 inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llCpath: '~/Work/<esc>"rpa/'<esc>
+nnoremap <leader>b :call DWTBranch()<cr>
+inoremap <leader>b :call DWTBranch()<cr>
 
 nnoremap <C-n> <esc>:cnext<CR>
 inoremap <C-n> <esc>:cnext<CR>
@@ -214,6 +216,27 @@ nnoremap <CR> :nohlsearch<cr><cr>
 command! -nargs=0 RehashCtags :call <SID>rehash_ctags()
 " iab <?= <?php print?><Left><Left>
 iab <// </<C-X><C-O>
+
+function! DWTBranch()
+  " dup the line
+  normal! ^YP 
+  " comment it
+  normal I#
+  "create space
+  normal! o
+  " get the branch name
+  exec ":.!git rev-parse --abbrev-ref HEAD"
+  " yank it to buffer a, delete it
+  normal! ^"ay$dd
+  " yank gem name to buffer b, move cursor to second param
+  normal! ^f'lvi'"byf,w
+  " change second param to **git_for('
+  normal! C**git_for('
+  " paste buffer b, add branch: '
+  normal! "bpA', branch: '
+  " page buffer a, add ')
+  normal! "apA')
+endfunction
 
 " autocommands
 " ----------------------------------------------------------
