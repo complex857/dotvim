@@ -43,6 +43,11 @@ Plug 'w0rp/ale'
 Plug 'isRuslan/vim-es6'
 " Plug 'vim-scripts/Decho'
 " Plug 'maxmellon/vim-jsx-pretty'
+Plug '907th/vim-auto-save'
+Plug 'autozimu/LanguageClient-neovim', {
+      \ 'branch': 'next',
+      \ 'do': 'bash install.sh',
+      \ }
 
 call plug#end()
 
@@ -173,6 +178,7 @@ nnoremap <D-Right> <Esc>:tabnext<CR>
 nnoremap <D-b> <Esc>:Breakpoint<CR>
 nnoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 nnoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
+nnoremap <leader>f <Esc>:NERDTreeFind<CR>
 
 inoremap <D-1> <Esc>:1tabnext<CR>
 inoremap <D-2> <esc>:2tabnext<cr>
@@ -191,6 +197,7 @@ inoremap <D-Right> <Esc>:tabnext<CR>
 inoremap <D-b> <Esc>:Breakpoint<CR>i
 inoremap <D-l> <Esc>:NERDTreeMirrorToggle<CR>
 inoremap <leader>l <Esc>:NERDTreeMirrorToggle<CR>
+inoremap <leader>f <Esc>:NERDTreeFind<CR>
 
 nnoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llCpath: '~/Work/<esc>"rpa/'<esc>
 inoremap <leader>r <Esc>^YI#<esc>p^f'l"ryi'f,llCpath: '~/Work/<esc>"rpa/'<esc>
@@ -265,10 +272,10 @@ augroup trailing_whitespace
     autocmd BufWritePre *.vim,*.py,*.js,*.html,*.php,*.rb,*.less,*.c,*.h,*.ctp,*.tpl,*.css,*.haml,*.coffee,*.ejs,*.jsx,*.rake :silent call <SID>StripTrailingWhitespaces()
 augroup END
 
-augroup ft_tpl
-    au!
-    autocmd FileType smarty   setlocal ft=html
-augroup END
+" augroup ft_tpl
+"     au!
+"     autocmd FileType smarty   setlocal ft=html
+" augroup END
 
 augroup ft_php
     au!
@@ -280,7 +287,7 @@ augroup ft_php
 augroup END
 augroup ft_css
     au!
-    autocmd FileType css,less      setlocal omnifunc=csscomplete#CompleteCSS
+    autocmd FileType css,less      setlocal omnifunc=ale#completion#OmniFunc
     autocmd FileType css,less      setlocal iskeyword+=_,$,@,%,#,-,.
     autocmd FileType css,less      syn sync minlines=200
 augroup END
@@ -294,7 +301,7 @@ augroup END
 augroup ft_javascript
     au!
     au FileType coffee          setlocal ft=javascript
-    au FileType javascript      setlocal omnifunc=javascriptcomplete#CompleteJS
+    au FileType javascript      setlocal omnifunc=ale#completion#OmniFunc
 augroup END
 augroup ft_python
     au!
@@ -311,6 +318,7 @@ augroup ft_rb
     autocmd FileType rb,ruby setlocal sts=2
     autocmd FileType rb,ruby setlocal ts=2
     autocmd FileType rb,ruby setlocal expandtab
+    autocmd FileType rb,ruby setlocal omnifunc=LanguageClient#complete
 augroup END
 augroup ft_coffee
     au!
@@ -319,10 +327,10 @@ augroup ft_coffee
     autocmd FileType javascript setlocal ts=2
     autocmd FileType javascript setlocal expandtab
 augroup END
-augroup autosave
-    au!
-    autocmd BufLeave,FocusLost * silent! wall
-augroup END
+" augroup autosave
+"     au!
+"     autocmd FocusLost * silent! wall
+" augroup END
 
 set noerrorbells visualbell t_vb=
 autocmd GUIEnter * set visualbell t_vb=
@@ -413,8 +421,9 @@ let g:winManagerWidth = 35
 let g:winManagerWindowLayout = 'FileExplorer,TagsExplorer|BufExplorer'
 let g:nerdtree_tabs_open_on_gui_startup = 0
 let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
+let g:NERDTreeMouseMode = 2
 
 " function NERDTreeMyOpenInTab(node)
 "     call a:node.open({'reuse': "all", 'where': 't'})
@@ -437,26 +446,48 @@ let g:gitgutter_enabled = 0
 xmap <Leader>t <Plug>(EasyAlign)
 nmap <Leader>t <Plug>(EasyAlign)
 
+" autosave
+" ----------------------------------------------------------
+let g:auto_save = 1  " enable AutoSave on Vim startup
+let g:auto_save_silent = 1  " enable AutoSave on Vim startup
+let g:auto_save_events = ["FocusLost"]
+
 " ale
 " ----------------------------------------------------------
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'javascriptreact': ['eslint'],
 \   'jsx': ['eslint'],
+\   'ruby': ['ruby', 'solargraph', 'rubocop'],
+\}
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'javascriptreact': ['eslint'],
 \}
 let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = 'normal'
 let g:ale_lint_delay = 500
+let g:ale_fix_on_save = 1
 let g:ale_lint_on_enter = 1
+let g:ale_virtualtext_cursor = 'disabled'
 let g:ale_linter_aliases = {
 \ 'jsx': 'css',
 \ 'javascriptreact': ['javascript', 'jsx'],
 \}
 let g:ale_linters_explicit = 1
+let g:ale_ruby_ruby_executable = '/Users/david.szabo/.rvm/rubies/ruby-3.0.6/bin/ruby'
 
 " vim-ripgrep
 " ----------------------------------------------------------
 let g:rg_command = "rg --vimgrep --glob '!tags'"
+
+" LanguageClient-neovim
+" ----------------------------------------------------------
+let g:LanguageClient_serverCommands = { 'ruby': ['/Users/david.szabo/.gem/ruby/3.0/bin/solargraph', 'stdio'] }
+
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 set includeexpr=substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(substitute(v:fname,
 \'^UserInboxModal','app/javascript/src/app/user_inbox/modal',''),
@@ -493,3 +524,4 @@ set includeexpr=substitute(substitute(substitute(substitute(substitute(substitut
 \'^CashierActions','app/javascript/src/app/cashier_actions',''),
 \'^Betslip','app/javascript/src/app/sportsbook/betslip',''),
 \'^EnhanedOutcomeOffers','app/javascript/src/app/enhanced_outcome_offers','')
+
